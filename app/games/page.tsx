@@ -3,12 +3,18 @@
 import { getGames } from "@/utils/getGames"
 import Link from "next/link"
 import { RiPlayFill } from "react-icons/ri"
+import { IoMdLogIn } from "react-icons/io"
 import { CgDetailsMore, CgArrowTopRight } from "react-icons/cg"
 import { Metadata } from "next"
 import Search from "@/components/Search"
+import { TypeGames } from "@/components/TypeGames"
+import { OptionScreenLg } from "@/components/OptionScreenLg"
+import { OptionScreenSm } from "@/components/OptionScreenSm"
+
+
 
 export const metadata: Metadata = {
-  title: "Games",
+  title: "games",
   description: "Chose your favourite game and play it Now"
 }
 
@@ -19,12 +25,21 @@ export default async function games() {
   // console.log(data)
   return (
     <main>
-      <div className="w-full h-20 bg-slate-500 fixed top-0 z-50 flex flex-row gap-2 md:gap-20 justify-center items-center">
+      <div className="w-full h-20 bg-slate-500 fixed top-0 z-50 flex flex-row gap-2 md:gap-20 justify-between md:justify-center items-center px-3">
       {/* <div>
       <SelectedGame data={data} />
       </div> */}
+      <OptionScreenSm />
+      <OptionScreenLg />
+      <TypeGames />
       <div>
-        <Search />
+        <Search/>
+      </div>
+      <div className="hidden md:block">
+      <Link href="/login" className="flex flex-row gap-1 justify-center items-center w-fit p-2 bg-red-600 rounded-xl text-white font-medium hover:opacity-90">
+      Login
+      <IoMdLogIn className="text-xl"/>
+      </Link>
       </div>
       </div>
       <div className="flex flex-row gap-5 flex-wrap justify-center items-center my-32 px-1">

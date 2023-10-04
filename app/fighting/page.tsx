@@ -1,4 +1,3 @@
-import { getSearchTermGame } from "@/utils/getSearchTermGame"
 import Link from "next/link"
 import { RiPlayFill } from "react-icons/ri"
 import { CgDetailsMore, CgArrowTopRight } from "react-icons/cg"
@@ -7,34 +6,18 @@ import { BiError } from "react-icons/bi"
 // import { SelectedGame } from "@/components/SelectedGame"
 import Search from "@/components/Search"
 import { TypeGames } from "@/components/TypeGames"
+import { getFightingGames } from "@/utils/getFightingGames"
 import { IoMdLogIn } from "react-icons/io"
 import { OptionScreenLg } from "@/components/OptionScreenLg"
 import { OptionScreenSm } from "@/components/OptionScreenSm"
-type Props = {
-    params:{
-        searchTerm: string,
-    }
+
+export const metadata: Metadata = {
+  title: 'fighting',
+  description: 'Page of fighting games',
 }
 
-export  async function generateMetadata({ params: {searchTerm} }:Props): Promise<Metadata>{
-  const game: Promise<Game[]> = getSearchTermGame(searchTerm)
-  const data = await game
-
-  if (!searchTerm){
-    return{
-      title: `Not Found`
-    }
-  }
-
-  return{
-    title: searchTerm,
-    description: `page of ${searchTerm}`
-  }
-}
-
-
-export default async function searchTerm({params: {searchTerm}}: Props) {
-  const games: Promise<Game[]> = getSearchTermGame(searchTerm)
+export default async function searchTerm() {
+  const games: Promise<Game[]> = getFightingGames()
   const data = await games
   // console.log(data)
   // const results: Result[] | undefined = data?.query?.pages // results is object contain information
@@ -42,17 +25,14 @@ export default async function searchTerm({params: {searchTerm}}: Props) {
   // if (!searchTerm) notFound()
   return (
     <main>
-            <div className="w-full h-20 bg-slate-500 fixed top-0 z-50 flex flex-row gap-2 md:gap-20 justify-between md:justify-center items-center px-3">
-      {/* <div>
-      <SelectedGame data={data} />
-      </div> */}
+      <div className="w-full h-20 bg-slate-500 fixed top-0 z-50 flex flex-row gap-2 md:gap-20 justify-between md:justify-center items-center px-3">
       <OptionScreenLg />
       <OptionScreenSm />
-      <TypeGames />
-      <div>
-        <Search />
-      </div>
-      <div className="hidden md:block">
+        <TypeGames />
+        <div>
+          <Search />
+        </div>
+        <div className="hidden md:block">
       <Link href="/login" className="flex flex-row gap-1 justify-center items-center w-fit p-2 bg-red-600 rounded-xl text-white font-medium hover:opacity-90">
       Login
       <IoMdLogIn className="text-xl"/>
